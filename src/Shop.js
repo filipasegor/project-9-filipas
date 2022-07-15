@@ -5,20 +5,8 @@ import Loader from "./Loader.js";
 export default function Shop() {
 
 
-  const [items, setItems] = useState(() => {
-    const saved = localStorage.getItem("items");
-    if(saved){
-      return JSON.parse(saved);
-    } else {
-      return []
-    }
-  });
-
+  const [items, setItems] = useState()
   const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(items))
-  }, [items]);
 
   useEffect(() => {
     (async () => {
@@ -27,7 +15,7 @@ export default function Shop() {
         const data = await response.json()
         if(data){
           console.log(data);
-          setItems([...items, { name: data.name, desc: data.desc}])
+          setItems(data)
         }
       } catch (error) {
         console.error(error);
